@@ -6,8 +6,8 @@
 
 - Скачайте код
 - Установите зависимости командой `pip install -r requirements.txt`
-- Создайте базе данных и отмигрируйте её командой `python3 manage.py migrate`
-- Запустите сервер командой `python3 manage.py runserver`
+- Создайте базе данных и отмигрируйте её командой `python manage.py migrate`
+- Запустите сервер командой `python manage.py runserver`
 
 ## Переменные окружения
 

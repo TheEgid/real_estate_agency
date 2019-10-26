@@ -1,6 +1,5 @@
-import dj_database_url
 import os
-
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -102,3 +101,4 @@ STATIC_URL = '/static/'
 DATABASES = {
     'default': dj_database_url.parse(os.getenv("DATABASE", "sqlite:///db.sqlite3")),
 }
+
