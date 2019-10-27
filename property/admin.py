@@ -17,7 +17,7 @@ class FlatAdmin(admin.ModelAdmin):
                     'price',
                     'new_building',
                     'construction_year',
-                    'town'
+                    'town',
                     )
 
     list_editable = ('new_building',)
@@ -27,6 +27,8 @@ class FlatAdmin(admin.ModelAdmin):
                    'has_balcony',
                    'rooms_number',
                    )
+
+    raw_id_fields = ('liked_by',)
 
 
 @admin.register(Claim)
