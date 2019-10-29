@@ -33,5 +33,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(relocate_owner_data),
+        migrations.RunPython(relocate_owner_data, move_backward),
     ]

@@ -5,11 +5,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField("ФИО владельца", max_length=200)
+    owner = models.CharField("ФИО владельца", max_length=200, db_index=True)
     owner_phone_pure = PhoneNumberField("Номер владельца2", max_length=20,
-                                        null=True, blank=True)
+                                        null=True, blank=True, db_index=True)
 
-    owners_phonenumber = models.CharField("Номер владельца", max_length=20)
+    owners_phonenumber = models.CharField("Номер владельца", max_length=20, db_index=True)
 
     created_at = models.DateTimeField("Когда создано объявление",
                                       default=timezone.now, db_index=True)
@@ -42,7 +42,7 @@ class Flat(models.Model):
                                            db_index=True)
 
     liked_by = models.ManyToManyField(User, related_name="liked_flat",
-                                      null=True, blank=True, db_index=True,
+                                      db_index=True,
                                       verbose_name='Кто лайкнул')
 
     def __str__(self):
@@ -67,14 +67,14 @@ class Claim(models.Model):
 
 
 class Owner(models.Model):
-    owner = models.CharField("ФИО владельца", max_length=200)
-    owners_phonenumber = models.CharField("Номер владельца", max_length=20)
-    owner_phone_pure = PhoneNumberField("Нормализированный Номер владельца",
+    owner = models.CharField("ФИО владельца", max_length=200, db_index=True)
+    owners_phonenumber = models.CharField("Номер владельца", max_length=20, db_index=True)
+    owner_phone_pure = PhoneNumberField("Нормализированный Номер владельца", db_index=True,
                                         max_length=20, null=True, blank=True)
-    flat = models.ManyToManyField(Flat, blank=False, null=False,
-                                  verbose_name='Квартиры в собственности',
-                                  related_name="owners_flats",
+    flat = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности',
+                                  related_name="owner_deprecated",
                                   db_index=True)
 
     def __str__(self):
-        return f'Собственник {self.owner}'
+        return f'Bладелец {self.owner}'
+
