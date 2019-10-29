@@ -42,6 +42,7 @@ class Flat(models.Model):
                                            db_index=True)
 
     liked_by = models.ManyToManyField(User, related_name="liked_flat",
+                                      null=True, blank=True, db_index=True,
                                       verbose_name='Кто лайкнул')
 
     def __str__(self):
@@ -66,4 +67,14 @@ class Claim(models.Model):
 
 
 class Owner(models.Model):
-    pass
+    owner = models.CharField("ФИО владельца", max_length=200)
+    owners_phonenumber = models.CharField("Номер владельца", max_length=20)
+    owner_phone_pure = PhoneNumberField("Нормализированный Номер владельца",
+                                        max_length=20, null=True, blank=True)
+    flat = models.ManyToManyField(Flat, blank=False, null=False,
+                                  verbose_name='Квартиры в собственности',
+                                  related_name="owners_flats",
+                                  db_index=True)
+
+    def __str__(self):
+        return f'Собственник {self.owner}'
