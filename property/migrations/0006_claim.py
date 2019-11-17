@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now, verbose_name='Когда созданa жалоба')),
                 ('claim_text', models.TextField(db_index=True, verbose_name='Текст жалобы')),
-                ('flat', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='flat_claim', to='property.Flat', verbose_name='Квартира, на которую пожаловались')),
-                ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Кто жаловался')),
+                ('flat', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='flat_claims', to='property.Flat', verbose_name='Квартира, на которую пожаловались')),
+                ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_claims', to=settings.AUTH_USER_MODEL, verbose_name='Кто жаловался')),
             ],
         ),
     ]

@@ -32,6 +32,8 @@ class Flat(models.Model):
 
     floor = models.CharField("Этаж",
                              max_length=3,
+                             null=True,
+                             blank=True,
                              help_text=
                              'Первый этаж, последний этаж, пятый этаж')
 
@@ -60,6 +62,7 @@ class Flat(models.Model):
     liked_by = models.ManyToManyField(User,
                                       related_name="liked_flat",
                                       db_index=True,
+                                      blank=True,
                                       verbose_name='Кто лайкнул')
 
     def __str__(self):
@@ -76,18 +79,19 @@ class Claim(models.Model):
                                       db_index=True)
 
     user = models.ForeignKey(User, blank=False, null=False,
+                             related_name='user_claims',
                              verbose_name='Кто жаловался',
                              on_delete=models.CASCADE)
 
     flat = models.ForeignKey(Flat, blank=False, null=False,
                              verbose_name='Квартира, на которую пожаловались',
-                             related_name="flat_claim",
+                             related_name='flat_claims',
                              db_index=True,
                              on_delete=models.CASCADE)
 
     claim_text = models.TextField("Текст жалобы",
-                                  blank=False,
-                                  null=False)
+                                  blank=True,
+                                  null=True)
 
 
 
@@ -107,6 +111,8 @@ class Owner(models.Model):
 
     owners_phonenumber = models.CharField("Номер владельца",
                                           max_length=20,
+                                          null=True,
+                                          blank=True,
                                           db_index=True)
 
     owner_phone_pure = PhoneNumberField("Нормализированный номер владельца",
@@ -116,8 +122,9 @@ class Owner(models.Model):
                                         db_index=True)
 
     flats = models.ManyToManyField(Flat,
-                                   related_name="flat_owner",
+                                   related_name="flats_owner",
                                    db_index=True,
+                                   blank=True,
                                    verbose_name='Квартиры в собственности')
 
     def __str__(self):
